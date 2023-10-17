@@ -1,8 +1,8 @@
 # Liste des tags utilises dans la doc
 tags_metadata = [
     {
-        "name": "Students",
-        "description": "Manages Students",
+        "name": "Recipe",
+        "description": "Manages Recipes",
         "externalDocs": {
             "description": "Items external docs",
             "url": "https://fastapi.tiangolo.com/",
