@@ -17,7 +17,7 @@ class Chief(BaseModel):
 
 chiefs = [
     Chief(id="1", name="John", last_name="Dark", region="Paris", specialty="Patisserie"),
-    Chief(id="2", name="Jane", last_name="Smith", region="New York", specialty="Boulangerie"),
+    Chief(id="2", name="Jane", last_name="Jackson", region="New York", specialty="Boulangerie"),
     Chief(id="3", name="Alice", last_name="Johnson", region="London", specialty="Restauration")
 ]
 
