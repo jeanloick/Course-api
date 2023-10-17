@@ -11,7 +11,7 @@ import routers.router_recipes
 import routers.router_chiefs
 
 app= FastAPI( 
-    title="Course API",
+    title="Master Chief Recipes !",
     description=api_description,
     openapi_tags=tags_metadata # tagsmetadata definit au dessus
     )
