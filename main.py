@@ -7,7 +7,7 @@ import uuid
 from documentation.description import api_description
 from documentation.tags import tags_metadata
 
-import routers.router_students
+import routers.router_recipes
 
 app= FastAPI( 
     title="Course API",
@@ -15,5 +15,5 @@ app= FastAPI(
     openapi_tags=tags_metadata # tagsmetadata definit au dessus
     )
 
-app.include_router(routers.router_students.router)
+app.include_router(routers.router_recipes.router)
 
