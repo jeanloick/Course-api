@@ -5,7 +5,7 @@ import uuid
 
 router = APIRouter(
     prefix='/recipe',
-    tags=['Recipes']
+    tags=['Recipe']
 )
 
 class Recipe(BaseModel):
