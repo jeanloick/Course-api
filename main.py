@@ -9,6 +9,7 @@ from documentation.tags import tags_metadata
 
 import routers.router_recipes
 import routers.router_chiefs
+from routers.router_auth import get_current_user
 
 app= FastAPI( 
     title="Master Chief Recipes !",

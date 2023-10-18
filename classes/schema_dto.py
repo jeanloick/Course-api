@@ -10,4 +10,8 @@ class Recipe(BaseModel):
     chef: str
     details: str
     difficulties : int
-    
+
+class User(BaseModel):
+
+    email: str
+    password: str

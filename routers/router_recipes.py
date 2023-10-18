@@ -2,6 +2,7 @@ from fastapi import APIRouter, FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List
 import uuid
+from database.firebase import db
 
 router = APIRouter(
     prefix='/recipe',
@@ -22,28 +23,33 @@ recipes = [
 
 @router.get('', response_model=List[Recipe])
 async def get_recipe():
-    return recipes
+    firebase_object = db.child('recipe').get().val()
+    result_array = [value for value in firebase_object.values()]
+    return result_array
+
 
 @router.get('/{recipe_id}', response_model=Recipe)
 async def get_recipe_id(recipe_id: str):
     for recipe in recipes:
-        if recipe.id == recipe_id:
-            return recipe
-    raise HTTPException(status_code=400, detail="Recipe not found")
+        firebase_object = db.child('recipes').child(recipe_id).get().val()
+        if firebase_object is not None:
+            return firebase_object
+    raise HTTPException(status_code=404, detail="Recipe not found")
 
 @router.post('', response_model=Recipe, status_code=201)
 async def create_recipe(given_name: str):
     generated_id = uuid.uuid4()
     new_recipe = Recipe(id=str(generated_id), name=given_name)
     recipes.append(new_recipe)
+    db.child("recipe").child(generated_id).set(new_recipe.model_dump())
     return new_recipe
 
 @router.patch('{recipe_id}', status_code=204)
 async def modify_recipe_name(recipe_id: str, modified_recipe: Recipe):
-    for recipe in recipes:
-        if recipe.id == recipe_id:
-            recipe.name = modified_recipe.name
-            return
+    firebase_object = db.child('recipes').child(recipe_id).get().val()
+    if firebase_object is not None:
+        updated_recipe = Recipe(id= recipe_id, **modified_recipe.model_dump())
+        return db.child('recipe').child(recipe_id).update(updated_recipe.model_dump())
     raise HTTPException(status_code=404, detail="Recipe not found")
 
 
