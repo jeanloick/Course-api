@@ -12,3 +12,4 @@ if not firebase_admin._apps:
 
 firebase = pyrebase.initialize_app(firebaseConfig)
 db = firebase.database()
+authRecipe = firebase.auth()
