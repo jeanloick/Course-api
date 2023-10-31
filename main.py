@@ -14,7 +14,7 @@ import routers.router_stripe
 from routers.router_auth import get_current_user
 
 app= FastAPI( 
-    title="Master Chief Recipes !",
+    title="MasterChief Recipes !",
     description=api_description,
     openapi_tags=tags_metadata # tagsmetadata definit au dessus
     )
