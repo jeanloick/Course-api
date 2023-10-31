@@ -22,5 +22,5 @@ app= FastAPI(
 app.include_router(routers.router_recipes.router)
 app.include_router(routers.router_chiefs.router)
 app.include_router(routers.router_auth.router)
-#app.include_router(routers.router_stripe.router)
+app.include_router(routers.router_stripe.router)
 
