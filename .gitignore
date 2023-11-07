@@ -1,3 +1,4 @@
 /.venv
 __pycache__
 connfig/masterchief-recipe-api-firebase-adminsdk-kl4dr-94934182e6.json
+.env

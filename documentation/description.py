@@ -11,5 +11,5 @@ remove recipe
 modify recipe
 delete recipe 
 
-
+[checkout](/stripe/checkout)
 """

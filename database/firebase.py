@@ -1,15 +1,16 @@
+import json
 import firebase_admin
 from firebase_admin import credentials
-from configs.firebase_config import firebaseConfig
-import pyrebase
+import pyrebase 
 
-if not firebase_admin._apps:
-    cred = credentials.Certificate("configs/masterchief-recipe-api-firebase-adminsdk-kl4dr-94934182e6.json")
-    firebase_admin.initialize_app(cred)
-    
-#cred = credentials.Certificate("path/to/serviceAccountKey.json")
-#firebase_admin.initialize_app(cred)
+from dotenv import dotenv_values
 
-firebase = pyrebase.initialize_app(firebaseConfig)
+config = dotenv_values(".env")
+
+# Initialize Firebase Admin with the service account information
+cred = credentials.Certificate(json.loads(config['FIREBASE_SERVICE_ACCOUNT_KEY']))
+firebase_admin.initialize_app(cred)
+
+firebase = pyrebase.initialize_app(json.loads(config['FIREBASE_CONFIG']))
 db = firebase.database()
 authRecipe = firebase.auth()

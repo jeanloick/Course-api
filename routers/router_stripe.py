@@ -23,7 +23,8 @@ async def stripe_checkout():
             line_items=[
                 {
                     # Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-                    'price': 'price_1O4KaQDeNOaTDGEGg4CeNuUE',
+                    'price': 'price_1O51yVK0YwCh5FYNcyv9C8Zd',
+                    'quantity': 1
                 },
             ],
             mode='subscription',
@@ -40,7 +41,7 @@ async def stripe_checkout():
 
 @router.post('/webhook')
 async def webhook_received(request: Request, stripe_signature: str = Header(None)):
-    webhook_secret = "whsec_79e4b26c08ab814541cc335a27bcf4ab91528a352b1c95de244660d456a70a23"
+    webhook_secret = "whsec_d871d63e917cb880c25ce562c34e8a144dd5ce43fc721476d8b250980d747ca8"
     data = await request.body()
     try:
         event = stripe.Webhook.construct_event(

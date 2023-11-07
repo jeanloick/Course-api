@@ -16,7 +16,8 @@ from routers.router_auth import get_current_user
 app= FastAPI( 
     title="MasterChief Recipes !",
     description=api_description,
-    openapi_tags=tags_metadata # tagsmetadata definit au dessus
+    openapi_tags=tags_metadata, # tagsmetadata definit au dessus
+    docs_url='/'
     )
 
 app.include_router(routers.router_recipes.router)
