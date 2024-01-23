@@ -54,15 +54,10 @@ async def modify_recipe_name(recipe_id: str, modified_recipe: Recipe):
 
 
 @router.delete('{recipe_id}', status_code=204)
-async def delete_recipe(recipe_id: str):
-    recipe_to_delete = None
-    for recipe in recipes:
+async def delete_recipe(recipe_id: str, ):
+    for recipe in recipe:
         if recipe.id == recipe_id:
-            recipe_to_delete = recipe
-            break
-
-    if recipe_to_delete is not None:
-        recipes.remove(recipe_to_delete)
-        db.child("recipe").child(recipe_id).remove()
-        return
+            recipes.remove(recipe)
+            db.child("recipe").child(recipe_id).remove()
+            return
     raise HTTPException(status_code=404, detail="Recipe not found")
