@@ -44,7 +44,7 @@ async def create_recipe(given_name: str):
     db.child("recipe").child(generated_id).set(new_recipe.model_dump())
     return new_recipe
 
-@router.patch('{recipe_id}', status_code=204)
+@router.patch('/{recipe_id}', status_code=204)
 async def modify_recipe_name(recipe_id: str, modified_recipe: Recipe):
     firebase_object = db.child('recipes').child(recipe_id).get().val()
     if firebase_object is not None:
