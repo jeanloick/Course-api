@@ -53,7 +53,7 @@ async def modify_recipe_name(recipe_id: str, modified_recipe: Recipe):
     raise HTTPException(status_code=404, detail="Recipe not found")
 
 
-@router.delete('/{recipe_id}', status_code=204)
+@router.delete('{recipe_id}', status_code=204)
 async def delete_recipe(recipe_id: str):
     recipe_to_delete = None
     for recipe in recipes:
