@@ -35,6 +35,13 @@ async def get_recipe_id(recipe_id: str):
         return firebase_object
     raise HTTPException(status_code=404, detail="Recipe not found")
 
+@router.get('/{recipe_id}', response_model=Recipe)
+async def get_recipe_id(recipe_id: str):
+    firebase_object = db.child('recipes').child(recipe_id).get().val()
+    if firebase_object is not None:
+        return firebase_object
+    raise HTTPException(status_code=404, detail="Recipe not found")
+
 @router.post('', response_model=Recipe, status_code=201)
 async def create_recipe(given_name: str):
     generated_id = uuid.uuid4()
