@@ -30,10 +30,18 @@ async def get_recipe():
 
 @router.get('/{recipe_id}', response_model=Recipe)
 async def get_recipe_id(recipe_id: str):
+    # Récupérez les données de la recette depuis Firebase
     firebase_object = db.child('recipes').child(recipe_id).get().val()
-    if firebase_object is not None:
-        return firebase_object
-    raise HTTPException(status_code=404, detail="Recipe not found")
+
+    # Vérifiez si les données de la recette ont été trouvées
+    if firebase_object is None:
+        raise HTTPException(status_code=404, detail="Recette non trouvée")
+
+    # Convertissez l'objet Firebase en objet Recipe
+    recipe = Recipe(**firebase_object)
+
+    # Renvoyez l'objet Recipe converti
+    return recipe
 
 @router.get('/{recipe_id}', response_model=Recipe)
 async def get_recipe_id(recipe_id: str):
