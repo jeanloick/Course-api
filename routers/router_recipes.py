@@ -53,11 +53,16 @@ async def modify_recipe_name(recipe_id: str, modified_recipe: Recipe):
     raise HTTPException(status_code=404, detail="Recipe not found")
 
 
-@router.delete('{recipe_id}', status_code=204)
-async def delete_recipe(recipe_id: str, ):
-    for recipe in recipe:
-        if recipe.id == recipe_id:
-            recipes.remove(recipe)
-            db.child("recipe").child(recipe_id).remove()
-            return
-    raise HTTPException(status_code=404, detail="Recipe not found")
+
+
+
+
+
+@router.delete('/{recipe_id}', status_code=204)
+async def delete_recipe(recipe_id: str):
+    firebase_object = db.child('recipe').child(recipe_id).get().val()
+    if firebase_object is not None:
+        db.child('recipe').child(recipe_id).remove()
+        return
+    else:
+        raise HTTPException(status_code=404, detail="Recipe not found")
