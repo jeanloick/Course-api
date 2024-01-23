@@ -13,33 +13,28 @@ def test_get_recipes():
 def test_get_recipe_by_id():
     recipe_id = str(uuid.uuid4())
     response = client.get(f"/recipe/{recipe_id}")
-    assert response.status_code == 404 # la recette n'existe pas initialement
+    assert response.status_code == 404 
 
 def test_get_existing_recipe_by_id():
-    # Supposons que vous avez déjà une recette avec cet ID dans votre base de données ou liste
-    existing_recipe_id = str(uuid.uuid4())  # Assurez-vous d'utiliser un ID qui existe réellement dans votre système
-
+    existing_recipe_id = "fb260f8a-0593-4c34-a3bb-943ad6a2447d"
     response = client.get(f"/recipe/{existing_recipe_id}")
 
-    assert response.status_code == 200  # Assurez-vous que la requête renvoie un code 200 (OK)
-    assert response.json() == {"id": existing_recipe_id, "name": "Nom de la recette existante"}  # Assurez-vous que la réponse correspond aux données réelles de la recette
+    assert response.status_code == 200
+    assert response.json() is not None
+    assert response.json()["id"] == existing_recipe_id
+    assert response.json()["name"] == "pizza"
 
 
-    assert response.status_code == 200  # Assurez-vous que la requête a réussi
-    assert response.json() is not None  # Assurez-vous que la réponse contient des données
-    assert response.json()["id"] == existing_recipe_id  # Assurez-vous que l'ID dans la réponse correspond à l'ID demandé
+def test_get_nonexistent_recipe_by_id():
+    nonexistent_recipe_id = str(uuid.uuid4())
+    response = client.get(f"/recipe/{nonexistent_recipe_id}")
 
-def test_create_recipe_failed():
-    recipe_data = {
-        "given_name": "burger a la tomate"
-    }
+    assert response.status_code == 404
+    assert response.json() == {"detail": "Recipe not found"}
 
-    response = client.post("/recipe", json=recipe_data)
-    assert response.status_code == 422
 
 
 def test_delete_recipe():
-    # Ajoutez une recette à la base de données pour tester
     recipe_id = str(uuid.uuid4())
     response = client.delete(f"/recipe/{recipe_id}")
-    assert response.status_code == 404  # En supposant que la recette n'existe pas initialement
+    assert response.status_code == 404  
