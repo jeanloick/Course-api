@@ -30,10 +30,9 @@ async def get_recipe():
 
 @router.get('/{recipe_id}', response_model=Recipe)
 async def get_recipe_id(recipe_id: str):
-    for recipe in recipes:
-        firebase_object = db.child('recipes').child(recipe_id).get().val()
-        if firebase_object is not None:
-            return firebase_object
+    firebase_object = db.child('recipes').child(recipe_id).get().val()
+    if firebase_object is not None:
+        return firebase_object
     raise HTTPException(status_code=404, detail="Recipe not found")
 
 @router.post('', response_model=Recipe, status_code=201)
@@ -51,10 +50,6 @@ async def modify_recipe_name(recipe_id: str, modified_recipe: Recipe):
         updated_recipe = Recipe(id= recipe_id, **modified_recipe.model_dump())
         return db.child('recipe').child(recipe_id).update(updated_recipe.model_dump())
     raise HTTPException(status_code=404, detail="Recipe not found")
-
-
-
-
 
 
 
